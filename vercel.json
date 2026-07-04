@@ -1,0 +1,43 @@
+{
+  "name": "hirex-job-board",
+  "version": 2,
+  "framework": null,
+  "outputDirectory": ".",
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/",            "dest": "/index.html" },
+    { "src": "/jobs",        "dest": "/jobs.html" },
+    { "src": "/jobs.html",   "dest": "/jobs.html" },
+    { "src": "/job-detail",  "dest": "/job-detail.html" },
+    { "src": "/apply",       "dest": "/apply.html" },
+    { "src": "/saved-jobs",  "dest": "/saved-jobs.html" },
+    { "src": "/(.*)",        "dest": "/$1", "status": 200 },
+    { "handle": "filesystem" },
+    { "src": "/(.*)",        "dest": "/404.html", "status": 404 }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options",        "value": "DENY" },
+        { "key": "X-XSS-Protection",       "value": "1; mode=block" },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/css/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/js/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

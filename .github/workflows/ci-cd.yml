@@ -1,9 +1,10 @@
 # =============================================================
 #  HIREX JOB BOARD — CI/CD Pipeline
-#  Triggers: push to main, pull_request to main
-#  Jobs:
+#  Triggers : push to main, pull_request to main
+#  Jobs     :
 #    1. lint-validate  — HTML validation + JS/CSS linting
-#    2. deploy         — GitHub Pages deployment (main only)
+#    2. preview        — Deploy preview to Vercel (PRs only)
+#    3. deploy         — Deploy production to Vercel (main only)
 # =============================================================
 
 name: CI/CD Pipeline
@@ -14,16 +15,9 @@ on:
   pull_request:
     branches: [main]
 
-# Allow GitHub Pages deployment
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-# Only one deploy at a time; cancel queued runs if a new one starts
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  pull-requests: write   # allows posting preview URLs as PR comments
 
 # ─────────────────────────────────────────
 #  JOB 1 — Lint & Validate
@@ -34,17 +28,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout source
       - name: ⬇️ Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up Node.js for linting tools
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # 3. Install linting dependencies
       - name: 📦 Install linting tools
         run: |
           npm install --save-dev \
@@ -54,36 +45,20 @@ jobs:
             eslint \
             @eslint/js
 
-      # 4. Validate HTML files
       - name: 🧱 Validate HTML
-        run: |
-          npx html-validate \
-            "*.html" \
-            --config .htmlvalidate.json
-        continue-on-error: false
+        run: npx html-validate "*.html" --config .htmlvalidate.json
 
-      # 5. Lint CSS files
       - name: 🎨 Lint CSS
-        run: |
-          npx stylelint "css/**/*.css" \
-            --config .stylelintrc.json
-        continue-on-error: false
+        run: npx stylelint "css/**/*.css" --config .stylelintrc.json
 
-      # 6. Lint JavaScript files
       - name: ⚡ Lint JavaScript
-        run: |
-          npx eslint "js/**/*.js" \
-            --config eslint.config.js \
-            --max-warnings 0
-        continue-on-error: false
+        run: npx eslint "js/**/*.js" --config eslint.config.js --max-warnings 0
 
-      # 7. Check for broken internal links (relative hrefs)
       - name: 🔗 Check internal links
         run: |
           echo "Checking internal links in HTML files..."
           MISSING=0
           for html in *.html; do
-            # Extract href values that look like local files
             links=$(grep -oP 'href="\K[^"#?]+(?=[^"]*")' "$html" | grep -v '^http' | grep -v '^mailto' | grep -v '^#' || true)
             for link in $links; do
               if [ ! -f "$link" ]; then
@@ -95,60 +70,120 @@ jobs:
             done
           done
           if [ "$MISSING" -gt 0 ]; then
-            echo ""
-            echo "Found $MISSING broken link(s). Fix them before merging."
+            echo "Found $MISSING broken link(s)."
             exit 1
           fi
-          echo ""
           echo "All internal links are valid ✅"
 
-      # 8. Summary
-      - name: ✅ Lint Summary
-        if: success()
-        run: |
-          echo "========================================"
-          echo "  All checks passed! Ready to deploy."
-          echo "========================================"
+      - name: ✅ All checks passed
+        run: echo "Lint & validation complete — safe to deploy."
 
 # ─────────────────────────────────────────
-#  JOB 2 — Deploy to GitHub Pages
-#  (Only runs on push to main after CI passes)
+#  JOB 2 — Vercel Preview (Pull Requests)
 # ─────────────────────────────────────────
-  deploy:
-    name: 🚀 Deploy to GitHub Pages
+  preview:
+    name: 🔎 Vercel Preview Deploy
     runs-on: ubuntu-latest
-    needs: lint-validate          # only deploy if lint passes
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: lint-validate
+    if: github.event_name == 'pull_request'
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      VERCEL_TOKEN:      ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
     steps:
-      # 1. Checkout
       - name: ⬇️ Checkout code
         uses: actions/checkout@v4
 
-      # 2. Configure GitHub Pages
-      - name: 🛠️ Setup GitHub Pages
-        uses: actions/configure-pages@v5
-
-      # 3. Upload the entire repo as a Pages artifact
-      - name: 📤 Upload site artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          # Upload the whole project root (static site)
-          path: '.'
+          node-version: '20'
 
-      # 4. Deploy!
-      - name: 🌐 Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: 📦 Install Vercel CLI
+        run: npm install --global vercel@latest
 
-      # 5. Print live URL
-      - name: 🎉 Deployment complete
+      - name: 🔗 Pull Vercel environment info
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🏗️ Build project
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🚀 Deploy preview to Vercel
+        id: deploy-preview
         run: |
-          echo "========================================"
-          echo "  Site deployed!"
-          echo "  URL: ${{ steps.deployment.outputs.page_url }}"
-          echo "========================================"
+          DEPLOY_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "PREVIEW_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "Preview URL: $DEPLOY_URL"
+
+      - name: 💬 Post preview URL as PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const previewUrl = '${{ steps.deploy-preview.outputs.PREVIEW_URL }}';
+            const body = [
+              '## 🚀 Vercel Preview Deployment',
+              '',
+              `| | |`,
+              `|---|---|`,
+              `| **Preview URL** | [${previewUrl}](${previewUrl}) |`,
+              `| **Status**      | ✅ Ready |`,
+              `| **Commit**      | \`${{ github.sha }}\` |`,
+              '',
+              '_This preview will be promoted to production when the PR is merged._'
+            ].join('\n');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+# ─────────────────────────────────────────
+#  JOB 3 — Vercel Production (main branch)
+# ─────────────────────────────────────────
+  deploy:
+    name: 🌐 Vercel Production Deploy
+    runs-on: ubuntu-latest
+    needs: lint-validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    env:
+      VERCEL_TOKEN:      ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID:     ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: 🔗 Pull Vercel environment info
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🏗️ Build project
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🚀 Deploy to Vercel Production
+        id: deploy-prod
+        run: |
+          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "PRODUCTION_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "Production URL: $DEPLOY_URL"
+
+      - name: 🎉 Deployment Summary
+        run: |
+          echo "========================================================"
+          echo "  ✅ Hirex deployed to Vercel Production!"
+          echo "  🌐 URL: ${{ steps.deploy-prod.outputs.PRODUCTION_URL }}"
+          echo "  📦 Commit: ${{ github.sha }}"
+          echo "  👤 Author: ${{ github.actor }}"
+          echo "========================================================"
