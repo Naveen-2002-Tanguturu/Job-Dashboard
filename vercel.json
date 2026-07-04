@@ -1,11 +1,5 @@
 {
-  "name": "hirex-job-board",
   "version": 2,
-  "framework": null,
-  "outputDirectory": ".",
-  "builds": [
-    { "src": "*.html", "use": "@vercel/static" }
-  ],
   "routes": [
     { "src": "/",            "dest": "/index.html" },
     { "src": "/jobs",        "dest": "/jobs.html" },
