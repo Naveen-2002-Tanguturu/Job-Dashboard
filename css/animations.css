@@ -1,0 +1,183 @@
+/* ============================================
+   HIREX — Animations, Transitions & Skeletons
+   ============================================ */
+
+/* ---- Page entrance ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ---- Stagger utilities ---- */
+.anim-fade-up       { animation: fadeUp 0.4s ease forwards; }
+.anim-fade-in       { animation: fadeIn 0.3s ease forwards; }
+.anim-slide-right   { animation: slideInRight 0.4s ease forwards; }
+.anim-scale-in      { animation: scaleIn 0.3s ease forwards; }
+
+.delay-1  { animation-delay: 0.05s; }
+.delay-2  { animation-delay: 0.10s; }
+.delay-3  { animation-delay: 0.15s; }
+.delay-4  { animation-delay: 0.20s; }
+.delay-5  { animation-delay: 0.25s; }
+.delay-6  { animation-delay: 0.30s; }
+
+/* ---- Skeleton shimmer ---- */
+@keyframes shimmer {
+  0%   { background-position: -700px 0; }
+  100% { background-position: 700px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 0%,
+    var(--bg-hover) 50%,
+    var(--bg-elevated) 100%
+  );
+  background-size: 700px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: var(--r-sm);
+}
+
+.skeleton-text {
+  height: 14px;
+  border-radius: var(--r-sm);
+  margin-bottom: var(--sp-2);
+}
+.skeleton-text.w-80 { width: 80%; }
+.skeleton-text.w-60 { width: 60%; }
+.skeleton-text.w-40 { width: 40%; }
+
+.skeleton-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-card);
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+}
+
+.skeleton-badge {
+  height: 22px;
+  width: 70px;
+  border-radius: var(--r-full);
+  display: inline-block;
+}
+
+/* ---- Hover lift ---- */
+.hover-lift {
+  transition: transform var(--t), box-shadow var(--t);
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- Pulse ---- */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* ---- Spin ---- */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin { animation: spin 1s linear infinite; }
+
+/* ---- Toast slide ---- */
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateX(120%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastSlideOut {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(120%); }
+}
+
+/* ---- Number counter (hero stats) ---- */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Gradient shimmer for hero ---- */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #a78bfa, #ec4899, #6366f1);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* ---- Backdrop blur support ---- */
+@supports (backdrop-filter: blur(12px)) {
+  .glass {
+    background: rgba(22, 26, 35, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  [data-theme="light"] .glass {
+    background: rgba(255, 255, 255, 0.75);
+  }
+}
+
+/* ---- Collapse/Expand ---- */
+.collapsible-body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--t-slow) ease;
+}
+.collapsible-body.open {
+  max-height: 1000px;
+}
+
+/* ---- Filter chip appear ---- */
+@keyframes chipPop {
+  0%   { transform: scale(0.8); opacity: 0; }
+  60%  { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.chip-enter { animation: chipPop 0.2s var(--t-spring) forwards; }
+
+/* ---- Scroll-based sticky header ---- */
+.header--scrolled {
+  box-shadow: var(--shadow-md);
+  border-bottom-color: var(--border);
+}

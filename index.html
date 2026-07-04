@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hirex — Find Your Next Career Move</title>
+  <meta name="description" content="Hirex is the modern job board connecting talented professionals with world-class companies. Browse 37+ jobs in engineering, design, marketing, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header" role="banner">
+  <div class="container">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo" aria-label="Hirex home">
+        <div class="header__logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <span class="header__logo-text">Hire<span>x</span></span>
+      </a>
+
+      <nav class="header__nav" role="navigation" aria-label="Main navigation">
+        <a href="index.html"      class="nav-link active">Home</a>
+        <a href="jobs.html"       class="nav-link">Find Jobs</a>
+        <a href="saved-jobs.html" class="nav-link">Saved Jobs</a>
+      </nav>
+
+      <div class="header__actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+          <span id="theme-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </span>
+        </button>
+        <a href="jobs.html" class="btn btn-primary btn-sm">Browse Jobs</a>
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav container" aria-label="Mobile navigation">
+    <a href="index.html"      class="nav-link">Home</a>
+    <a href="jobs.html"       class="nav-link">Find Jobs</a>
+    <a href="saved-jobs.html" class="nav-link">Saved Jobs</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container">
+    <div class="hero__inner">
+
+      <div class="hero__eyebrow anim-fade-up">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        37+ jobs from world-class companies
+      </div>
+
+      <h1 id="hero-title" class="hero__title anim-fade-up delay-1">
+        Find Your Next<br><span class="gradient-text">Dream Career</span>
+      </h1>
+
+      <p class="hero__subtitle anim-fade-up delay-2">
+        Thousands of opportunities from top companies in tech, design, marketing, finance, and more.
+      </p>
+
+      <!-- Search Bar -->
+      <div class="hero__search-wrap anim-fade-up delay-3">
+        <form id="hero-search-form" class="hero-search" role="search" aria-label="Job search">
+          <div class="hero-search__field">
+            <svg class="hero-search__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="hero-search-input" type="text" placeholder="Job title, skill, or company…" autocomplete="off" aria-label="Search jobs by title, skill, or company" />
+          </div>
+          <div class="hero-search__divider" aria-hidden="true"></div>
+          <div class="hero-search__field">
+            <svg class="hero-search__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <input id="hero-location-input" type="text" placeholder="Location or Remote…" autocomplete="off" aria-label="Filter by location" />
+          </div>
+          <button type="submit" class="btn btn-primary" id="hero-search-btn">Search Jobs</button>
+        </form>
+      </div>
+
+      <!-- Popular Searches -->
+      <div class="hero__popular anim-fade-up delay-4">
+        <span class="hero__popular-label">Popular:</span>
+        <a href="jobs.html?category=Engineering" class="hero__popular-tag" data-category="Engineering">Engineering</a>
+        <a href="jobs.html?remote=remote" class="hero__popular-tag" data-category="">Remote</a>
+        <a href="jobs.html?category=Design" class="hero__popular-tag" data-category="Design">Design</a>
+        <a href="jobs.html?category=Product" class="hero__popular-tag" data-category="Product">Product</a>
+        <a href="jobs.html?level=senior" class="hero__popular-tag" data-category="">Senior</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS BAR ============ -->
+<div class="stats-bar" aria-label="Job board statistics">
+  <div class="container">
+    <div class="stats-bar__grid">
+      <div class="stats-bar__item">
+        <div class="stats-bar__value"><span data-count="37" data-suffix="">0</span>+</div>
+        <div class="stats-bar__label">Active Jobs</div>
+      </div>
+      <div class="stats-bar__item">
+        <div class="stats-bar__value"><span data-count="28" data-suffix="">0</span>+</div>
+        <div class="stats-bar__label">Top Companies</div>
+      </div>
+      <div class="stats-bar__item">
+        <div class="stats-bar__value"><span data-count="10" data-suffix="">0</span></div>
+        <div class="stats-bar__label">Job Categories</div>
+      </div>
+      <div class="stats-bar__item">
+        <div class="stats-bar__value"><span data-count="95" data-suffix="%">0</span></div>
+        <div class="stats-bar__label">Placement Rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="section" aria-labelledby="categories-title">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title" id="categories-title">Browse by Category</h2>
+        <p class="section-subtitle">Find the role that matches your expertise.</p>
+      </div>
+      <a href="jobs.html" class="btn btn-secondary btn-sm">View all jobs →</a>
+    </div>
+    <div id="category-grid" class="categories-grid" role="list" aria-label="Job categories"></div>
+  </div>
+</section>
+
+<!-- ============ FEATURED JOBS ============ -->
+<section class="section" style="padding-top:0" aria-labelledby="featured-title">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title" id="featured-title">Featured Jobs</h2>
+        <p class="section-subtitle">Hand-picked opportunities from top companies.</p>
+      </div>
+      <a href="jobs.html" class="btn btn-secondary btn-sm">See all jobs →</a>
+    </div>
+    <div id="featured-jobs" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px" role="list" aria-label="Featured job listings"></div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section" style="background:var(--bg-secondary);padding:var(--sp-20) 0" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section-header" style="text-align:center;justify-content:center;flex-direction:column;align-items:center">
+      <h2 class="section-title" id="how-title">How Hirex Works</h2>
+      <p class="section-subtitle">Land your next role in three simple steps.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card anim-fade-up">
+        <div class="step-card__number">1</div>
+        <div class="step-card__title">Search & Filter</div>
+        <p class="step-card__desc">Browse thousands of roles by title, category, location, remote options, salary, and experience level.</p>
+      </div>
+      <div class="step-card anim-fade-up delay-2">
+        <div class="step-card__number">2</div>
+        <div class="step-card__title">Save & Compare</div>
+        <p class="step-card__desc">Bookmark roles that interest you and compare details, salaries, benefits, and company culture at a glance.</p>
+      </div>
+      <div class="step-card anim-fade-up delay-4">
+        <div class="step-card__number">3</div>
+        <div class="step-card__title">Apply in Minutes</div>
+        <p class="step-card__desc">Submit your application through our streamlined multi-step form with resume upload and cover letter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="section" aria-labelledby="cta-title">
+  <div class="container">
+    <div style="background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(167,139,250,.1));border:1px solid var(--border-accent);border-radius:var(--r-2xl);padding:var(--sp-12) var(--sp-10);text-align:center;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(99,102,241,.2) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="position:relative;z-index:1">
+        <h2 id="cta-title" style="font-size:clamp(1.5rem,3vw,2.25rem);margin-bottom:12px">Ready to find your dream job?</h2>
+        <p style="color:var(--text-secondary);margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto">Join thousands of professionals who've found amazing opportunities through Hirex.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="jobs.html" class="btn btn-primary btn-lg" id="cta-browse-btn">Browse All Jobs</a>
+          <a href="saved-jobs.html" class="btn btn-secondary btn-lg" id="cta-saved-btn">My Saved Jobs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="header__logo" style="margin-bottom:12px;display:inline-flex">
+          <div class="header__logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <span class="header__logo-text">Hire<span>x</span></span>
+        </a>
+        <p class="footer__brand-desc">The modern job board connecting talented professionals with world-class companies across every industry.</p>
+      </div>
+      <div>
+        <div class="footer__col-title">Browse</div>
+        <div class="footer__links">
+          <a href="jobs.html" class="footer__link">All Jobs</a>
+          <a href="jobs.html?remote=remote" class="footer__link">Remote Jobs</a>
+          <a href="jobs.html?level=senior" class="footer__link">Senior Roles</a>
+          <a href="jobs.html?type=internship" class="footer__link">Internships</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Categories</div>
+        <div class="footer__links">
+          <a href="jobs.html?category=Engineering" class="footer__link">Engineering</a>
+          <a href="jobs.html?category=Design" class="footer__link">Design</a>
+          <a href="jobs.html?category=Product" class="footer__link">Product</a>
+          <a href="jobs.html?category=Marketing" class="footer__link">Marketing</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Account</div>
+        <div class="footer__links">
+          <a href="saved-jobs.html" class="footer__link">Saved Jobs</a>
+          <a href="jobs.html" class="footer__link">Browse Jobs</a>
+          <a href="#" class="footer__link" style="opacity:.5;cursor:not-allowed">Post a Job (Soon)</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__copy">© 2026 Hirex. All rights reserved. Built with ❤️ for job seekers.</div>
+      <div class="footer__social" aria-label="Social media links">
+        <a href="#" class="footer__social-link" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+        </a>
+        <a href="#" class="footer__social-link" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="footer__social-link" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/jobs-data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app-home.js"></script>
+</body>
+</html>

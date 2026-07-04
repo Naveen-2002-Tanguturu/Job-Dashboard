@@ -1,0 +1,139 @@
+/* =========================================
+   HIREX — Design Tokens & CSS Variables
+   ========================================= */
+
+:root {
+  /* ---- Backgrounds ---- */
+  --bg-primary:   #0d0f14;
+  --bg-secondary: #111318;
+  --bg-card:      #161a23;
+  --bg-elevated:  #1e2330;
+  --bg-hover:     #242a38;
+
+  /* ---- Accent (Indigo) ---- */
+  --accent:        #6366f1;
+  --accent-hover:  #4f46e5;
+  --accent-light:  rgba(99, 102, 241, 0.12);
+  --accent-glow:   rgba(99, 102, 241, 0.25);
+
+  /* ---- Text ---- */
+  --text-primary:   #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:     #64748b;
+  --text-accent:    #818cf8;
+
+  /* ---- Borders ---- */
+  --border:        #2d3347;
+  --border-hover:  #3d4761;
+  --border-accent: rgba(99, 102, 241, 0.4);
+
+  /* ---- Semantic Colors ---- */
+  --success:    #10b981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --warning:    #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --error:      #ef4444;
+  --error-bg:   rgba(239, 68, 68, 0.1);
+  --info:       #38bdf8;
+  --info-bg:    rgba(56, 189, 248, 0.1);
+
+  /* ---- Category Badge Colors ---- */
+  --cat-engineering:  #6366f1;
+  --cat-design:       #ec4899;
+  --cat-marketing:    #f59e0b;
+  --cat-product:      #06b6d4;
+  --cat-finance:      #10b981;
+  --cat-data:         #8b5cf6;
+  --cat-hr:           #f97316;
+  --cat-operations:   #64748b;
+  --cat-sales:        #14b8a6;
+  --cat-devops:       #84cc16;
+
+  /* ---- Job Type Badge Colors ---- */
+  --type-fulltime:    #10b981;
+  --type-parttime:    #f59e0b;
+  --type-contract:    #06b6d4;
+  --type-internship:  #ec4899;
+  --type-freelance:   #8b5cf6;
+
+  /* ---- Remote Badge Colors ---- */
+  --remote-remote:  #6366f1;
+  --remote-hybrid:  #8b5cf6;
+  --remote-onsite:  #64748b;
+
+  /* ---- Spacing Scale ---- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-14: 56px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ---- Border Radius ---- */
+  --r-xs:   4px;
+  --r-sm:   6px;
+  --r:      10px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   20px;
+  --r-2xl:  24px;
+  --r-full: 9999px;
+
+  /* ---- Shadows ---- */
+  --shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow:        0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-md:     0 8px 30px rgba(0, 0, 0, 0.45);
+  --shadow-lg:     0 20px 60px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 0 24px rgba(99, 102, 241, 0.25);
+  --shadow-card:   0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border);
+
+  /* ---- Typography ---- */
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* ---- Transitions ---- */
+  --t-fast:  120ms ease;
+  --t:       220ms ease;
+  --t-slow:  380ms ease;
+  --t-spring: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Z-Index ---- */
+  --z-base:    1;
+  --z-header:  100;
+  --z-modal:   200;
+  --z-toast:   300;
+  --z-tooltip: 400;
+
+  /* ---- Layout ---- */
+  --max-width:     1280px;
+  --header-height: 68px;
+}
+
+/* ---- Light Mode ---- */
+[data-theme="light"] {
+  --bg-primary:   #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card:      #ffffff;
+  --bg-elevated:  #f8fafc;
+  --bg-hover:     #f1f5f9;
+
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --text-accent:    #4f46e5;
+
+  --border:       #e2e8f0;
+  --border-hover: #cbd5e1;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow:    0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px var(--border);
+}
